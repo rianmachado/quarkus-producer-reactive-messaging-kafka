@@ -1,5 +1,7 @@
 package rian.demo.kafka;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
 @RegisterForReflection
 public class PlayedMovie {
 
