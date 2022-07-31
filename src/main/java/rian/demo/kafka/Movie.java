@@ -1,5 +1,6 @@
 package rian.demo.kafka;
 
+@RegisterForReflection
 public class Movie {
 
 	public int id;
