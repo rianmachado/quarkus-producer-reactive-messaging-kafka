@@ -23,11 +23,12 @@ public class MovieKafkaGenerator {
 
 	private Random random = new Random();
 
-	private List<Movie> movies = List.of(new Movie(1, "The Hobbit", "Peter Jackson", "Fantasy"),
-			new Movie(2, "Star Trek: First Contact", "Jonathan Frakes", "Space"),
-			new Movie(3, "Encanto", "Jared Bush", "Animation"),
-			new Movie(4, "Cruella", "Craig Gillespie", "Crime Comedy"),
-			new Movie(5, "Sing 2", "Garth Jennings", "Jukebox Musical Comedy"));
+	private List<Movie> movies = List.of(new Movie(1, "Cidade de Deus", "Peter Jackson", "Drama"),
+			new Movie(2, "Dois Filhos de Francisco", "Jonathan Frakes", "Drama"),
+			new Movie(3, "Tropa de Elite", "Jose Padilha", "Acao"),
+			new Movie(4, "Auto da Compadecida", "Guel Arraes", "Comedia"),
+			new Movie(5, "Sing 2", "Garth Jennings", "Jukebox Musical Comedy"),
+			new Movie(1, "Cidade de Deus", "Rian Vasconcelos", "Drama"));
 
 	@Outgoing("movies")
 	public Multi<Record<Integer, Movie>> movies() {
@@ -39,9 +40,11 @@ public class MovieKafkaGenerator {
 		return Multi.createFrom().ticks().every(Duration.ofMillis(1000)).onOverflow().drop().map(tick -> {
 			Movie movie = movies.get(random.nextInt(movies.size()));
 			int time = random.nextInt(300);
-			logger.info("movie " + movie.name + "played for " + time + " minutes");
+			logger.info("FILME " + movie.name + " PERIODO DE EXECUCAO:  " + time + " MINUTES");
 			// Region as key
 			return Record.of("eu", new PlayedMovie(movie.id, time));
 		});
 	}
+
+
 }
